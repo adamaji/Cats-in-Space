@@ -16,3 +16,6 @@
 #Unity3D Generated File On Crash Reports
 sysinfo.txt
 unity.userprefs
+*.meta
+Assembly-CSharp-vs.csproj Assembly-CSharp.csproj
+unity-csharp.sln unity.sln

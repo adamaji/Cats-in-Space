@@ -14,10 +14,7 @@
    id="svg2987"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="building_base.svg"
-   inkscape:export-filename="C:\Users\Vance Miller\Documents\GitHub\cats_in_space\Cats_unity_project\Assets\Images\houses_on_planet.png"
-   inkscape:export-xdpi="71.43"
-   inkscape:export-ydpi="71.43">
+   sodipodi:docname="planet_base.svg">
   <defs
      id="defs2989" />
   <sodipodi:namedview
@@ -29,7 +26,7 @@
      inkscape:pageshadow="0"
      inkscape:zoom="0.88867187"
      inkscape:cx="350"
-     inkscape:cy="925.0989"
+     inkscape:cy="790.06593"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -57,14 +54,14 @@
     <path
        transform="matrix(1.975804,0,0,1.975804,-173.66668,-608.66711)"
        sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000080;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path2985"
        sodipodi:cx="340.95825"
        sodipodi:cy="587.62372"
        sodipodi:rx="252.06154"
        sodipodi:ry="252.06154"
        d="m 593.01979,587.62372 a 252.06154,252.06154 0 1 1 -504.123077,0 252.06154,252.06154 0 1 1 504.123077,0 z"
-       inkscape:export-filename="C:\Users\Vance Miller\Documents\GitHub\cats_in_space\Cats_unity_project\Assets\Images\ocean.png"
+       inkscape:export-filename="C:\Users\Vance Miller\Documents\GitHub\cats_in_space\Cats_unity_project\Assets\Images\circle.png"
        inkscape:export-xdpi="71.43"
        inkscape:export-ydpi="71.43" />
   </g>

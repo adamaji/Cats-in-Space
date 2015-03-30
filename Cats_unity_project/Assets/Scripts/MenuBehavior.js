@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 var menuWidth = 100;
-var percentMenuShowing = 0.0;
+var percentMenuShowing = 0.1;
 var percentSubMenuShowing = 0.0;
 //showSubMenu is either null or a string of the name of the submenu to show
 var showSubMenu = null;
@@ -21,15 +21,15 @@ function Update () {
 			if ( percentSubMenuShowing > 1 ) percentSubMenuShowing = 1.0;
 		} else {
 			percentSubMenuShowing -= 0.1;
-			if ( percentSubMenuShowing< 0 ) percentSubMenuShowing = 0.0;
+			if ( percentSubMenuShowing< 0.0 ) percentSubMenuShowing = 0.0;
 		}	
 		
 	} else {
 		percentMenuShowing -= 0.1;
-		if ( percentMenuShowing < 0 ) percentMenuShowing = 0.0;
+		if ( percentMenuShowing < 0.1 ) percentMenuShowing = 0.1;
 		
 		percentSubMenuShowing -= 0.1;
-		if ( percentSubMenuShowing< 0 ) percentSubMenuShowing = 0.0;
+		if ( percentSubMenuShowing< 0.0 ) percentSubMenuShowing = 0.0;
 	}
 	
 

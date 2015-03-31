@@ -39,3 +39,5 @@ Cats_unity_project/Cats_unity_project.sln
 Cats_unity_project/Assembly-CSharp-vs.csproj
 Cats_unity_project/Assembly-CSharp.csproj
 ../.gitignore.*.meta
+Assembly-UnityScript-vs.unityproj
+Assembly-UnityScript.unityproj

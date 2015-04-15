@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class rotate : MonoBehaviour {
+	public Rigidbody2D rb2D;
+	private float speed = 5f;
 
-	// Use this for initialization
-	void Start () {
-	
+	void Start() {
+		rb2D = GetComponent<Rigidbody2D>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		transform.Rotate (0f, 0f, 0.01f);
+	void FixedUpdate() {
+		rb2D.MoveRotation(rb2D.rotation + speed * Time.fixedDeltaTime);
 	}
 }

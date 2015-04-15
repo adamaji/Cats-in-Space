@@ -3,7 +3,7 @@ using System.Collections;
 
 public class rotate : MonoBehaviour {
 	public Rigidbody2D rb2D;
-	private float speed = 5f;
+	public float speed = 15f;
 
 	void Start() {
 		rb2D = GetComponent<Rigidbody2D>();

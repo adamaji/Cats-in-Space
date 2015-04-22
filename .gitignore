@@ -1,7 +1,3 @@
-# Ignore everything
-/*
-/*/
- 
 # Inverse ignore essentials
 !/Assets/
 !/ProjectSettings/

@@ -1,43 +1,18 @@
-# =============== #
-# Unity generated #
-# =============== #
-[Tt]emp/
-[Oo]bj/
-[Bb]uild
-[Ll]ibrary/
-sysinfo.txt
+# Ignore everything
+/*
+/*/
  
-# ===================================== #
-# Visual Studio / MonoDevelop generated #
-# ===================================== #
-[Ee]xported[Oo]bj/
-/*.userprefs
-/*.csproj
-/*.pidb
-/*.suo
-/*.sln*
-/*.user
-/*.unityproj
-/*.booproj
+# Inverse ignore essentials
+!/Assets/
+!/ProjectSettings/
+!.gitignore
  
-# ============ #
-# OS generated #
-# ============ #
-.DS_Store*
+# OS Stuff
+.DS_Store
 ._*
 .Spotlight-V100
 .Trashes
-Icon?
 ehthumbs.db
-[Tt]humbs.db
-Cats_unity_project/Library/
-Cats_unity_project/Temp/
-Cats_unity_project/Assemply-CSharp-vs.csproj
-Cats_unity_project/Cats_unity_project.userprefs
-Cats_unity_project/Cats_unity_project-csharp.sln
-Cats_unity_project/Cats_unity_project.sln
-Cats_unity_project/Assembly-CSharp-vs.csproj
-Cats_unity_project/Assembly-CSharp.csproj
-../.gitignore.*.meta
-Assembly-UnityScript-vs.unityproj
-Assembly-UnityScript.unityproj
+Thumbs.db
+$RECYCLE.BIN/
+Desktop.ini

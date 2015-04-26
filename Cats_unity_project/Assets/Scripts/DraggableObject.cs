@@ -7,7 +7,7 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public static GameObject itemBeingDragged;
 	public GameObject worldAnalog;
 	public GameObject baseObject;
-	public float initialRotationDeg = 0;
+	public float initialRotationDeg = -45;
 	Vector3 startPosition;
 	Vector3 rotation;
 	

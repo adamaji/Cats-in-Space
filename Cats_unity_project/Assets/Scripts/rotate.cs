@@ -4,12 +4,19 @@ using System.Collections;
 public class rotate : MonoBehaviour {
 	public Rigidbody2D rb2D;
 	public float speed = 15f;
+	public bool isRotating = false;
 
 	void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
 	}
-	
+
+	public void toggleRotate() {
+		isRotating = !isRotating;
+	}
+
 	void FixedUpdate() {
-		rb2D.MoveRotation(rb2D.rotation + speed * Time.fixedDeltaTime);
+		if (isRotating) {
+			rb2D.MoveRotation (rb2D.rotation + speed * Time.fixedDeltaTime);
+		}
 	}
 }

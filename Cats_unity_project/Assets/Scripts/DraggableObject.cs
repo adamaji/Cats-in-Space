@@ -10,7 +10,17 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public float initialRotationDeg = -45;
 	Vector3 startPosition;
 	Vector3 rotation;
-	
+	private string trackname;
+
+	void Start() {
+		ControllerBehavior controller = GameObject.Find ("LevelController").GetComponent<ControllerBehavior> ();
+		string levelname = "level"+controller.level + "/";
+		trackname = transform.parent.parent.name + "/";
+		this.baseObject = GameObject.Find ("base");
+		this.worldAnalog = Resources.Load <GameObject>("Prefabs/" + levelname + trackname + this.name);
+		initialRotationDeg = -45;
+	}
+
 	#region IBeginDragHandler implementation
 	
 	public void OnBeginDrag (PointerEventData eventData)
@@ -46,8 +56,10 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		transform.position = startPosition;
 		GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
+		GameObject track = GameObject.Find ("base/" + trackname);
 		GameObject obj = Instantiate (worldAnalog) as GameObject;
-		obj.transform.parent = baseObject.transform;
+		obj.name = worldAnalog.name;
+		obj.transform.parent = track.transform;
 		//obj.transform.eulerAngles = rotation;
 		obj.transform.RotateAround(new Vector3 (0, 0, 0), new Vector3 (0, 0, 1), rotation.z);
 

@@ -10,6 +10,16 @@ public class WorldObject : MonoBehaviour {
 
 	void Start() {
 		this.baseObject = GameObject.Find ("base");
+		ControllerBehavior controller = GameObject.Find ("LevelController").GetComponent<ControllerBehavior> ();
+		string levelname = "level"+controller.level;
+		string trackname = transform.parent.name;
+		string imageDir = "Sprites/" + levelname + "/" + trackname + "/" + this.name;
+		Sprite newSprite =  Resources.Load <Sprite>(imageDir);
+		if (newSprite){
+			GetComponent<SpriteRenderer>().sprite = newSprite;
+		} else {
+			Debug.LogError("Sprite not found at " + imageDir, this);
+		}
 	}
 
 	void OnMouseDrag() {

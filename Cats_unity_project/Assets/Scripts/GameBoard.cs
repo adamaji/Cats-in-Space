@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class rotate : MonoBehaviour {
+public class GameBoard : MonoBehaviour {
 	public Rigidbody2D rb2D;
 	public float speed = 15f;
 	public bool isRotating = false;

@@ -11,6 +11,7 @@ public class WorldObject : MonoBehaviour {
 	private Vector3 startAng;
 	private Collider currentColliding;
 	private AudioSource audio;
+	private Vector3 startOffset;
 
 	void Start() {
 		this.gameBoard = GameObject.Find ("GameBoard");
@@ -43,10 +44,12 @@ public class WorldObject : MonoBehaviour {
 	void OnMouseDown() {
 		startPos = gameObject.transform.position;
 		startAng = gameObject.transform.eulerAngles;
+		startOffset = Camera.main.ScreenToWorldPoint (Input.mousePosition) - startPos;
+
 	}
 	
 	void OnMouseDrag() {
-		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition );
+		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition ) - startOffset;
 		pos.z = gameObject.transform.position.z;
 		transform.position = pos;
 		Vector3 v3 = Camera.main.WorldToScreenPoint(gameBoard.transform.position);
@@ -60,8 +63,7 @@ public class WorldObject : MonoBehaviour {
 	
 	void OnMouseUp() {
 		BoxCollider pos = GameObject.Find ("recyclebin").GetComponent<BoxCollider> ();
-		Debug.Log (pos.bounds);
-		Debug.Log (Input.mousePosition);
+
 		if (pos.bounds.Contains(Input.mousePosition)) {
 			Destroy (this.gameObject);
 		} else {

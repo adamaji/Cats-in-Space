@@ -16,6 +16,7 @@ public class MenuObject : MonoBehaviour {
 		} else {
 			Debug.LogError("Sprite not found at " + imageDir, this);
 		}
+		GetComponent<Image> ().preserveAspect = true;
 	}
 
 }

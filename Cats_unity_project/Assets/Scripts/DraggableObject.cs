@@ -17,7 +17,7 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		string levelname = "level"+controller.level + "/";
 		trackname = transform.parent.parent.name + "/";
 		this.baseObject = GameObject.Find ("base");
-		Debug.Log ("Prefabs/" + levelname + trackname + this.name);
+		//Debug.Log ("Prefabs/" + levelname + trackname + this.name);
 		this.worldAnalog = Resources.Load <GameObject>("Prefabs/" + levelname + trackname + this.name);
 		initialRotationDeg = -45;
 	}
@@ -27,7 +27,7 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public void OnBeginDrag (PointerEventData eventData)
 	{
 		itemBeingDragged = gameObject;
-		startPosition = transform.position;
+		//startPosition = transform.parent.position;
 		GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
 	
@@ -54,17 +54,23 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public void OnEndDrag (PointerEventData eventData)
 	{
 		itemBeingDragged = null;
-		transform.position = startPosition;
+		//transform.position = startPosition;
+		transform.position = transform.parent.position;
 		GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
 		GameObject track = GameObject.Find ("base/" + trackname);
 		GameObject obj = Instantiate (worldAnalog) as GameObject;
+
 		obj.name = worldAnalog.name;
 		obj.transform.parent = track.transform;
-		//obj.transform.eulerAngles = rotation;
 		obj.transform.RotateAround(new Vector3 (0, 0, 0), new Vector3 (0, 0, 1), rotation.z);
-
+		
 		gameObject.transform.eulerAngles = Vector3.zero;
+
+		obj.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+
+
+
 	}
 	
 	#endregion

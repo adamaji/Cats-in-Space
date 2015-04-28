@@ -6,6 +6,12 @@ public class PlayButton : MonoBehaviour {
 	public Sprite play, stop;
 	private Button button;
 
+	private enum Fade
+	{
+		In,
+		Out
+	};
+
 	// Use this for initialization
 	void Start () {
 		button = GetComponent<Button> ();

@@ -3,19 +3,22 @@ using System.Collections;
 
 public class WorldObject : MonoBehaviour {
 
-	public GameObject baseObject;
+	public GameObject gameBoard;
 	public float initialRotationDeg = -45;
 	Vector3 rotation;
 	private float padding = 0.01f;
 	private Vector3 startPos;
 	private Vector3 startAng;
 	private Collider currentColliding;
+	private AudioSource audio;
 
 	void Start() {
-		this.baseObject = GameObject.Find ("base");
+		this.gameBoard = GameObject.Find ("GameBoard");
 		ControllerBehavior controller = GameObject.Find ("LevelController").GetComponent<ControllerBehavior> ();
 		string levelname = "level"+controller.level;
 		string trackname = transform.parent.name;
+
+		// create a reference to the piece image
 		string imageDir = "Sprites/" + levelname + "/" + trackname + "/" + this.name;
 		Sprite newSprite =  Resources.Load <Sprite>(imageDir);
 		if (newSprite){
@@ -23,7 +26,18 @@ public class WorldObject : MonoBehaviour {
 		} else {
 			Debug.LogError("Sprite not found at " + imageDir, this);
 		}
+
+		// create a reference to the audio file
+		string audioDir = "Audio/" + levelname + "/" + trackname + "/" + this.name;
+		AudioClip audioClip = Resources.Load<AudioClip> (audioDir);
+		if (audioClip) {
+			GetComponent<AudioSource> ().clip = audioClip;
+		} else {
+			Debug.LogError ("Audio not found at " + audioDir, this);
+		}
+		// assign member variables
 		initialRotationDeg = -45;
+		audio = gameObject.GetComponent<AudioSource> ();
 	}
 
 	void OnMouseDown() {
@@ -35,7 +49,7 @@ public class WorldObject : MonoBehaviour {
 		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition );
 		pos.z = gameObject.transform.position.z;
 		transform.position = pos;
-		Vector3 v3 = Camera.main.WorldToScreenPoint(baseObject.transform.position);
+		Vector3 v3 = Camera.main.WorldToScreenPoint(gameBoard.transform.position);
 		v3 = Input.mousePosition - v3;
 		float angle = ((Mathf.Atan2( v3.y, v3.x)* Mathf.Rad2Deg) - 90 + initialRotationDeg) % 360 ;
 		rotation = new Vector3(0.0f,0.0f,angle);
@@ -53,13 +67,15 @@ public class WorldObject : MonoBehaviour {
 		} else {
 			gameObject.transform.position = startPos;
 			gameObject.transform.eulerAngles = startAng;
-			gameObject.transform.RotateAround (this.baseObject.transform.position, new Vector3 (0, 0, 1), rotation.z - startAng.z);
+			gameObject.transform.RotateAround (this.gameBoard.transform.position, new Vector3 (0, 0, 1), rotation.z - startAng.z);
 		}
 	}
 	
 	void OnTriggerEnter(Collider other) {
 		if (other.name == "recyclebin") {
 			currentColliding = other;
+		} else if (gameBoard.GetComponent<GameBoard>().isRotating && other.name == "needle") {
+			audio.Play ();
 		}
 	}
 	

@@ -9,11 +9,10 @@ public class LevelSelect : MonoBehaviour {
 		In,
 		Out
 	};
+
 	
 	public void resetLevel() {
-		FadeAudio (4.0f, Fade.Out);
-		Debug.Log ("asdf");
-		Application.LoadLevel (level);
+		StartCoroutine (FadeAudio (4.0f, Fade.Out));
 	}
 
 	IEnumerator FadeAudio (float timer, Fade fadeType) {
@@ -21,11 +20,16 @@ public class LevelSelect : MonoBehaviour {
 		float end = fadeType == Fade.In ? 1.1F : 0.0F;
 		float i = 0.0F;
 		float step = 1.0F / timer;
-		while (i <= 1.0F) {
-			Debug.Log (i);
-			i += step * Time.deltaTime;
-			GameObject.Find ("Audio Source").GetComponent<AudioSource>().volume = Mathf.Lerp (start, end, i);
-			yield return new WaitForSeconds(step * Time.deltaTime);
+		GameObject audio = GameObject.Find ("Audio Source");
+		if (audio) {
+			AudioSource a = audio.GetComponent<AudioSource>();
+			while (i <= 1.0F) {
+				i += step * Time.deltaTime;
+				a.volume = Mathf.Lerp (start, end, i);
+				Debug.Log (a.volume);
+				yield return new WaitForSeconds (step * Time.deltaTime);
+			}
 		}
+		Application.LoadLevel (level);
 	}
 }

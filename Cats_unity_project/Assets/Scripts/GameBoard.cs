@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameBoard : MonoBehaviour {
 	public Rigidbody2D rb2D;
-	public float speed = 15f;
+	public float speed = 28f;
 	public bool isRotating = false;
 
 	void Start() {

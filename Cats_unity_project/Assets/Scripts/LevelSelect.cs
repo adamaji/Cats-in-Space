@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelSelect : MonoBehaviour {
 	public int level;
 
-	public enum Fade
+	private enum Fade
 	{
 		In,
 		Out
@@ -12,7 +12,8 @@ public class LevelSelect : MonoBehaviour {
 
 	
 	public void resetLevel() {
-		StartCoroutine (FadeAudio (4.0f, Fade.Out));
+		GameObject.Find ("screenFader").GetComponent<SceneFadeInOut> ().FadeToBlack();
+		StartCoroutine (FadeAudio (1.5f, Fade.Out));
 	}
 
 	IEnumerator FadeAudio (float timer, Fade fadeType) {

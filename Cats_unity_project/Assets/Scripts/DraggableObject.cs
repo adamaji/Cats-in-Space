@@ -27,7 +27,7 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public void OnBeginDrag (PointerEventData eventData)
 	{
 		itemBeingDragged = gameObject;
-		startPosition = transform.position;
+		//startPosition = transform.parent.position;
 		GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
 	
@@ -54,7 +54,8 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public void OnEndDrag (PointerEventData eventData)
 	{
 		itemBeingDragged = null;
-		transform.position = startPosition;
+		//transform.position = startPosition;
+		transform.position = transform.parent.position;
 		GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
 		GameObject track = GameObject.Find ("base/" + trackname);

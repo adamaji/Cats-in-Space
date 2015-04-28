@@ -17,7 +17,7 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		string levelname = "level"+controller.level + "/";
 		trackname = transform.parent.parent.name + "/";
 		this.baseObject = GameObject.Find ("base");
-		Debug.Log ("Prefabs/" + levelname + trackname + this.name);
+		//Debug.Log ("Prefabs/" + levelname + trackname + this.name);
 		this.worldAnalog = Resources.Load <GameObject>("Prefabs/" + levelname + trackname + this.name);
 		initialRotationDeg = -45;
 	}

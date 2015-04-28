@@ -36,8 +36,8 @@ public class WorldObject : MonoBehaviour {
 		} else {
 			Debug.LogError ("Audio not found at " + audioDir, this);
 		}
+
 		// assign member variables
-		initialRotationDeg = -45;
 		audio = gameObject.GetComponent<AudioSource> ();
 	}
 
@@ -45,20 +45,27 @@ public class WorldObject : MonoBehaviour {
 		startPos = gameObject.transform.position;
 		startAng = gameObject.transform.eulerAngles;
 		startOffset = Camera.main.ScreenToWorldPoint (Input.mousePosition) - startPos;
-
 	}
 	
 	void OnMouseDrag() {
-		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition ) - startOffset;
-		pos.z = gameObject.transform.position.z;
-		transform.position = pos;
+
 		Vector3 v3 = Camera.main.WorldToScreenPoint(gameBoard.transform.position);
 		v3 = Input.mousePosition - v3;
 		float angle = ((Mathf.Atan2( v3.y, v3.x)* Mathf.Rad2Deg) - 90 + initialRotationDeg) % 360 ;
 		rotation = new Vector3(0.0f,0.0f,angle);
-		
-		gameObject.transform.eulerAngles = rotation;
-		//gameObject.transform.RotateAround(new Vector3 (0, 0, 0), new Vector3 (0, 0, 1), rotation.z);
+		CircleCollider2D coll = GameObject.Find ("base").GetComponent<CircleCollider2D> ();
+		Vector3 mouseWorld = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		mouseWorld.z = 0;
+		if (coll.bounds.Contains ( mouseWorld)) {
+			gameObject.transform.position = startPos;
+			gameObject.transform.eulerAngles = startAng;
+			gameObject.transform.RotateAround (this.gameBoard.transform.position, new Vector3 (0, 0, 1), rotation.z - startAng.z);
+		} else {
+			Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition ) - startOffset;
+			pos.z = gameObject.transform.position.z;
+			transform.position = pos;
+			gameObject.transform.eulerAngles = rotation;
+		}
 	}
 	
 	void OnMouseUp() {

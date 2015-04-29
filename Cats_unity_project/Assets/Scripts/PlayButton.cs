@@ -7,12 +7,6 @@ public class PlayButton : MonoBehaviour {
 	private Button button;
 	public PlayCatHead catHead;
 
-	private enum Fade
-	{
-		In,
-		Out
-	};
-
 	// Use this for initialization
 	void Start () {
 		button = GetComponent<Button> ();

@@ -8,6 +8,7 @@ public class CursorBehavior : MonoBehaviour {
 	public Sprite openImg;
 	public Sprite closeImg;
 	private SpriteRenderer myRenderer;
+	private bool isClicked = false;
 
 	void Start () {
 		myRenderer = gameObject.GetComponent<SpriteRenderer> ();
@@ -23,13 +24,13 @@ public class CursorBehavior : MonoBehaviour {
 		Vector3 pos = Camera.main.ScreenToWorldPoint (screenpos);
 		pos.z = transform.position.z;
 		transform.position = pos;
-	}
 
-	void OnMouseDown() {
-		myRenderer.sprite = closeImg;
-	}
-
-	void OnMouseUp() {
-		myRenderer.sprite = openImg;
+		if (Input.GetMouseButtonDown (0) && !isClicked) {
+			myRenderer.sprite = closeImg;
+			isClicked = true;
+		} else if (Input.GetMouseButtonUp(0) && isClicked) {
+			myRenderer.sprite = openImg;
+			isClicked = false;
+		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WorldObject : MonoBehaviour {
 	
-	public GameObject gameBoard;
+	private GameObject gameBoard;
 	public float initialRotationDeg = -45;
 	Vector3 rotation;
 	private float padding = 0.01f;
@@ -12,11 +12,12 @@ public class WorldObject : MonoBehaviour {
 	private Collider currentColliding;
 	private AudioSource audio;
 	private Vector3 startOffset;
+	public int alignmentFraction = 360;
 	
 	void Start() {
 		this.gameBoard = GameObject.Find ("GameBoard");
 		ControllerBehavior controller = GameObject.Find ("LevelController").GetComponent<ControllerBehavior> ();
-		string levelname = "level"+controller.level;
+		string levelname = "level" + controller.level;
 		string trackname = transform.parent.name;
 		
 		// create a reference to the piece image
@@ -39,8 +40,6 @@ public class WorldObject : MonoBehaviour {
 		
 		// assign member variables
 		audio = gameObject.GetComponent<AudioSource> ();
-
-
 	}
 	
 	void OnMouseDown() {
@@ -50,20 +49,28 @@ public class WorldObject : MonoBehaviour {
 	}
 	
 	void OnMouseDrag() {
-		
 		Vector3 v3 = Camera.main.WorldToScreenPoint(gameBoard.transform.position);
 		v3 = Input.mousePosition - v3;
-		float angle = ((Mathf.Atan2( v3.y, v3.x)* Mathf.Rad2Deg) - 90 + initialRotationDeg) % 360 ;
-		rotation = new Vector3(0.0f,0.0f,angle);
+		float angle = ((Mathf.Atan2(v3.y, v3.x) * Mathf.Rad2Deg) - 90 + initialRotationDeg) % 360;
+		float fracRot = ((angle - startAng.z) % 360) / 360;
+		float snappedRotFrac = ((int) (fracRot * alignmentFraction)) / ((float) alignmentFraction);
+		float degreeSnappedRot = snappedRotFrac * 360;
+// we should account for the board rotation here
+		float autoRotated = (degreeSnappedRot) % 360;
+		rotation = new Vector3(0.0f, 0.0f, autoRotated);
+
 		CircleCollider2D coll = GameObject.Find ("base").GetComponent<CircleCollider2D> ();
 		Vector3 mouseWorld = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		mouseWorld.z = 0;
-		if (coll.bounds.Contains ( mouseWorld)) {
+
+		if (coll.bounds.Contains (mouseWorld)) {
+			float transformAngle = (rotation.z - startAng.z) % 360;
 			gameObject.transform.position = startPos;
 			gameObject.transform.eulerAngles = startAng;
-			gameObject.transform.RotateAround (this.gameBoard.transform.position, new Vector3 (0, 0, 1), rotation.z - startAng.z);
+
+			gameObject.transform.RotateAround (this.gameBoard.transform.position, new Vector3 (0, 0, 1), rotation.z);
 		} else {
-			Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition ) - startOffset;
+			Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition) - startOffset;
 			pos.z = gameObject.transform.position.z;
 			transform.position = pos;
 			gameObject.transform.eulerAngles = rotation;
@@ -72,27 +79,18 @@ public class WorldObject : MonoBehaviour {
 	
 	void OnMouseUp() {
 		BoxCollider pos = GameObject.Find ("recyclebin").GetComponent<BoxCollider> ();
-		
 		if (pos.bounds.Contains(Input.mousePosition)) {
 			Destroy (this.gameObject);
 		} else {
 			gameObject.transform.position = startPos;
 			gameObject.transform.eulerAngles = startAng;
-			gameObject.transform.RotateAround (this.gameBoard.transform.position, new Vector3 (0, 0, 1), rotation.z - startAng.z);
+			gameObject.transform.RotateAround (this.gameBoard.transform.position, new Vector3 (0, 0, 1), rotation.z);
 		}
 	}
-	
+
 	void OnTriggerEnter(Collider other) {
-		if (other.name == "recyclebin") {
-			currentColliding = other;
-		} else if (gameBoard.GetComponent<GameBoard>().isRotating && other.name == "needle") {
+		if (gameBoard.GetComponent<GameBoard> ().isRotating) {
 			audio.Play ();
-		}
-	}
-	
-	void OnTriggerExit(Collider exit) {
-		if (exit.name == "recyclebin") {
-			currentColliding = null;
 		}
 	}
 }

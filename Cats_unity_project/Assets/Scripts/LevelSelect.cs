@@ -27,7 +27,6 @@ public class LevelSelect : MonoBehaviour {
 			while (i <= 1.0F) {
 				i += step * Time.deltaTime;
 				a.volume = Mathf.Lerp (start, end, i);
-				Debug.Log (a.volume);
 				yield return new WaitForSeconds (step * Time.deltaTime);
 			}
 		}

@@ -16,6 +16,10 @@ public class LevelSelect : MonoBehaviour {
 		StartCoroutine (FadeAudio (1.5f, Fade.Out));
 	}
 
+	public void loadLevel(int level){
+		Application.LoadLevel (level);
+	}
+
 	IEnumerator FadeAudio (float timer, Fade fadeType) {
 		float start = fadeType == Fade.In ? 0.0F : 1.0F;
 		float end = fadeType == Fade.In ? 1.1F : 0.0F;

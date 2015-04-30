@@ -83,7 +83,7 @@ public class MenuObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		obj.transform.parent = track.transform;
 		obj.GetComponent<WorldObject> ().alignmentFraction = alignmentFraction;
 		obj.transform.RotateAround (new Vector3 (0, 0, 0), new Vector3 (0, 0, 1), rotation.z);
-		
+
 		gameObject.transform.eulerAngles = Vector3.zero;
 		
 		obj.transform.localScale = new Vector3 (0.5f, 0.5f, 0);
